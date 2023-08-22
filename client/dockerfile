@@ -1,0 +1,29 @@
+# Используем офф Node.js образ
+FROM node:18 AS build
+
+# Указываем рабочую директорию в контейнере
+WORKDIR /app-plane
+
+# Копируем package.json and package-lock.json
+COPY package*.json ./
+
+# Уставить зависимости
+RUN npm install
+
+# Копируем все остальное
+COPY . .
+
+# Делаем build
+RUN npm run build
+
+# Устанавливаем офф nginx образ для production
+FROM nginx:1.21-alpine
+
+# Копируем dist в папку для nginx
+COPY --from=build /app-plane/dist /usr/share/nginx/html
+
+# Открываем порт
+EXPOSE 80
+
+# Запускаем
+CMD ["nginx", "-g", "daemon off;"]
