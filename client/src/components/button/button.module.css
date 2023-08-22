@@ -1,0 +1,15 @@
+.button {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: none;
+  background: #2fb5fc;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+}
+
+.back-button {
+  font-weight: bold;
+  color: rgb(148, 163, 182);
+  cursor: pointer;
+}
